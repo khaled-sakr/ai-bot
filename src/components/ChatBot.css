@@ -60,9 +60,6 @@ body {
   height: 60%;
   display: flex;
   flex-direction: column;
-  overflow-y: auto; /* Enable vertical scrolling */
-  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
-  scrollbar-width: none; /* Hide scrollbar for Firefox */
 }
 
 /* Media query for mobile view */
@@ -70,11 +67,6 @@ body {
   .chat-container {
     width: 90%;
   }
-}
-
-/* Hide scrollbar for WebKit browsers */
-.chat-container::-webkit-scrollbar {
-  display: none;
 }
 
 .chat-header {

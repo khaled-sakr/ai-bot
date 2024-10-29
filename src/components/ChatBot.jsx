@@ -2,7 +2,7 @@ import { GiReturnArrow } from "react-icons/gi";
 import { Bounce } from "react-activity";
 import "react-activity/dist/library.css";
 import { TypeAnimation } from "react-type-animation";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { FiSend } from "react-icons/fi";
 import "./ChatBot.css";
@@ -15,10 +15,18 @@ const ChatPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasSimilarQuestions, setHasSimilarQuestions] = useState(false);
 
+  const messagesEndRef = useRef(null);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   const sendMessage = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
-
     const newMessages = [...messages, { text: input, sender: "user" }];
     setMessages(newMessages);
     setIsLoading(true);
@@ -254,6 +262,7 @@ const ChatPage = () => {
                 }}
               />
             )}
+            <div ref={messagesEndRef} />
           </div>
         </div>
         <img src="../rob.png" alt="" className="robot-container" />

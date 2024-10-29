@@ -59,9 +59,8 @@ const AnimatedBackground = ({ children }) => {
       <svg className="wave-top" style={styles.wave} viewBox="0 0 1200 250">
         <path fillRule="evenodd" clipRule="evenodd" d={wave1} fill="#129376" />
       </svg>
-      {/* <div style={styles.contentContainer}> */}
+
       <div style={styles.content}>{children}</div>
-      {/* </div> */}
     </div>
   );
 };
