@@ -45,6 +45,10 @@ body {
     display: none;
   }
 }
+.index-module_type__E-SaG::after {
+  content: "";
+  display: none; /* Hides the cursor */
+}
 
 .chat-container {
   background: transparent;

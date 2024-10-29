@@ -152,7 +152,6 @@ const ChatPage = () => {
         </button>
       </form>
       <div className="chat-header">
-        {/* <img src="https://una-oic.org/en/" alt="" /> */}
         <h1>UNA BOOT</h1>
         <p>مساعدك الشخصي بالذكاء الإصطناعي</p>
       </div>
@@ -167,7 +166,7 @@ const ChatPage = () => {
                   className="message-avatar"
                 />
               )}
-              <div className="message-text">
+              <div className={`${true && "remove"} message-text`}>
                 <TypeAnimation
                   sequence={[msg.text, () => setIsTypingComplete(true)]}
                   speed={50}
@@ -176,8 +175,8 @@ const ChatPage = () => {
                   cursor={!isTypingComplete}
                   render={() => (
                     <div
+                      className={`index-module_type__E-SaG message-text`}
                       style={{ fontFamily: "Tajawal, sans-serif" }}
-                      className="message-text"
                       {...(msg.isHtml
                         ? { dangerouslySetInnerHTML: { __html: msg.text } }
                         : { children: msg.text })}
