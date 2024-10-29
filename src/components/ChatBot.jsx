@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { FiSend } from "react-icons/fi";
 import "./ChatBot.css";
+import AnimatedBackground from "./AnimatedBg";
 
 const ChatPage = () => {
   const [messages, setMessages] = useState([]);
@@ -156,99 +157,108 @@ const ChatPage = () => {
   };
 
   return (
-    <div className="chat-page">
-      <form onSubmit={sendMessage} className="chat-input-form">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="اكتب سؤالك هنا..."
-          className="chat-input"
-        />
-        <button type="submit" className="send-button">
-          <FiSend />
-        </button>
-        <button
-          type="button"
-          onMouseDown={startListening}
-          className="microphone-button"
-        >
-          <img
-            src="../microphone.png"
-            alt="ميكروفون"
-            style={{
-              width: "27px",
-              height: "27px",
-            }}
+    <AnimatedBackground>
+      <div className="chat-page">
+        <form onSubmit={sendMessage} className="chat-input-form">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="اكتب سؤالك هنا..."
+            className="chat-input"
           />
-        </button>
-      </form>
-      <div className="chat-header">
-        <h1>UNA BOT</h1>
-        <p>مساعدك الشخصي بالذكاء الإصطناعي</p>
-      </div>
-      <div className="chat-container">
-        <div className="chat-messages">
-          {messages.map((msg, index) => (
-            <div key={index} className={`chat-message ${msg.sender}`}>
-              {msg.sender === "bot" && msg.icon && (
-                <img
-                  src="../../robot1.png"
-                  alt="روبوت"
-                  className="message-avatar"
-                />
-              )}
-              <div className="message-text">
-                <TypeAnimation
-                  sequence={[msg.text, () => setIsTypingComplete(true)]}
-                  speed={50}
-                  repeat={0}
-                  wrapper="div"
-                  cursor={!isTypingComplete}
-                  render={() => {
-                    if (msg.isHtml) {
-                      return (
-                        <div
-                          style={{ fontFamily: "Tajawal, sans-serif" }}
-                          dangerouslySetInnerHTML={{ __html: msg.text }} // Use this to render HTML
-                        />
-                      );
-                    } else {
-                      return (
-                        <div
-                          style={{ fontFamily: "Tajawal, sans-serif" }}
-                          className={`index-module_type__E-SaG message-text`}
-                        >
-                          {msg.text}
-                        </div>
-                      );
-                    }
-                  }}
-                />
-              </div>
-              {msg.sender === "bot" && msg.isButton && (
-                <button
-                  onClick={() => handleSimilarQuestion(msg.id)}
-                  className="select-question-button"
-                >
-                  <GiReturnArrow />
-                </button>
-              )}
-            </div>
-          ))}
-          {isLoading && (
-            <Bounce
+          <button type="submit" className="send-button">
+            <FiSend />
+          </button>
+          <button
+            type="button"
+            onMouseDown={startListening}
+            className="microphone-button"
+          >
+            <img
+              src="../microphone.png"
+              alt="ميكروفون"
               style={{
-                color: "#129376",
-                height: "60%",
-                width: "60%",
+                width: "27px",
+                height: "27px",
               }}
             />
-          )}
+          </button>
+        </form>
+        <div className="chat-header">
+          <h1>UNA BOT</h1>
+          <p>مساعدك الشخصي بالذكاء الإصطناعي</p>
         </div>
+        <div className="chat-container">
+          <div className="chat-messages">
+            {messages.map((msg, index) => (
+              <div key={index} className={`chat-message ${msg.sender}`}>
+                {msg.sender === "bot" && msg.icon && (
+                  <img
+                    src="../../robot1.png"
+                    alt="روبوت"
+                    className="message-avatar"
+                  />
+                )}
+                <div className="message-text">
+                  {false ? (
+                    <div
+                      style={{ fontFamily: "Tajawal, sans-serif" }}
+                      className="message-text"
+                    >
+                      {msg.text}
+                    </div>
+                  ) : (
+                    <TypeAnimation
+                      sequence={[msg.text, () => setIsTypingComplete(true)]}
+                      speed={70}
+                      repeat={0}
+                      wrapper="div"
+                      cursor={!isTypingComplete}
+                      render={() => {
+                        if (msg.isHtml) {
+                          return (
+                            <div
+                              dangerouslySetInnerHTML={{ __html: msg.text }}
+                            />
+                          );
+                        } else {
+                          return (
+                            <div
+                              style={{ fontFamily: "Tajawal, sans-serif" }}
+                              className={`index-module_type__E-SaG message-text`}
+                            >
+                              {msg.text}
+                            </div>
+                          );
+                        }
+                      }}
+                    />
+                  )}
+                </div>
+                {msg.sender === "bot" && msg.isButton && (
+                  <button
+                    onClick={() => handleSimilarQuestion(msg.id)}
+                    className="select-question-button"
+                  >
+                    <GiReturnArrow />
+                  </button>
+                )}
+              </div>
+            ))}
+            {isLoading && (
+              <Bounce
+                style={{
+                  color: "#129376",
+                  margin: "auto",
+                }}
+              />
+            )}
+          </div>
+        </div>
+        <img src="../rob.png" alt="" className="robot-container" />
       </div>
-      <img src="../rob.png" alt="" className="robot-container" />
-    </div>
+    </AnimatedBackground>
   );
 };
 
