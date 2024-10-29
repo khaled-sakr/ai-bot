@@ -17,6 +17,9 @@ body {
   height: 100vh;
   /* background: linear-gradient(90deg, #5f1010, #129376, #129376, #5f1010); */
   background-image: url("../../public/bg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 @keyframes upDown {
   0%,
